@@ -1,10 +1,23 @@
 import React from 'react';
-
+import EditBtnImage from '../body/edit-btn.png';
 const Body = () => {
     const RecipeTitleStyle = {
         fontSize: '22px',
-        fontFamily: '"Unica One", cursive'
-
+        fontFamily: '"Unica One", cursive',
+        width: '80%',
+        display: 'inline-block'
+    };
+    const ImageEditStyle = {
+        width: '20px',
+        border: 'none'
+    };
+    const ButtonEditStyle = {
+        border: 'none',
+        background: 'none'
+    };
+    const BtnEditStyle = {
+        width: '10%',
+        display: 'inline-block'
     };
     return (
         <div className="container">
@@ -14,6 +27,12 @@ const Body = () => {
                         <img src="https://www.thugkitchen.com/sites/default/files/styles/recipe_xl/public/recipes/Strawberry%20Rose%20Pancakes_Edited.jpg" alt="" className="bd-placeholder-img card-img-top" />
                         <div className="card-body">
                             <p style={RecipeTitleStyle} className="card-text">Strawberry Rose Pancake</p>
+                            <div style={BtnEditStyle} className="btn-edit">
+                                <button style={ButtonEditStyle} type="button" >
+                                    <img style={ImageEditStyle} src={EditBtnImage} />
+                                </button>
+
+                            </div>
                             <div className="d-flex justify-content-between align-items-center">
                                 <div className="btn-group">
                                     <button type="button" className="btn btn-sm btn-outline-secondary btn-view" data-recipeid="5ea67b39423f27520000b87c">View</button>
