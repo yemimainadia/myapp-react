@@ -1,12 +1,16 @@
 import React, { Component } from 'react';
 import EditBtnImage from '../body/edit-btn.png';
 import { connect } from 'react-redux';
-import { fetchRecipe } from '../../redux/actions';
+import { fetchRecipe, deleteRecipe } from '../../redux/actions';
 
 class Body extends Component {
 
     componentDidMount() {
         this.props.fetchRecipe();
+    }
+
+    remove = (recipeID) => {
+        this.props.deleteRecipe(recipeID);
     }
 
     render() {
@@ -55,7 +59,7 @@ class Body extends Component {
                                         </div>
                                         <div className="d-flex justify-content-between align-items-center">
                                             <div className="btn-group">
-                                                <button type="button" className="btn-delete" data-recipeid={dataAPI._id}>Not Interested</button>
+                                                <button type="button" onClick={() => this.remove(dataAPI._id)} className="btn-delete" data-recipeid={dataAPI._id}>Not Interested</button>
                                             </div>
                                             <small className="text-muted">{dataAPI.recipe_time}</small>
                                         </div>
@@ -86,5 +90,8 @@ class Body extends Component {
 const mapStateToProps = ({ data = {}, isLoadingData = true }) => ({
     data, isLoadingData
 });
-
-export default connect(mapStateToProps, { fetchRecipe })(Body);
+const mapDispatchToProps = (dispatch) => ({
+    fetchRecipe: () => dispatch(fetchRecipe()),
+    deleteRecipe: (idRecipe) => dispatch(deleteRecipe(idRecipe))
+})
+export default connect(mapStateToProps, mapDispatchToProps)(Body);

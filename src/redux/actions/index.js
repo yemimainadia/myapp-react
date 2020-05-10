@@ -15,3 +15,15 @@ function showRecipe(data) {
         payload: data,
     };
 }
+
+export function deleteRecipe(idRecipe) {
+    API.delete(`recipe/${idRecipe}`).then(res => {
+        console.log(res);
+        console.log(res.data);
+    });
+    return function (dispatch) {
+        return API.get("recipe?max=6").then(({ data }) => {
+            dispatch(showRecipe(data));
+        });
+    };
+}
