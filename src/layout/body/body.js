@@ -86,7 +86,6 @@ class Body extends Component {
                 color: 'white',
                 borderRadius: '5px'
 
-
             };
 
             const formStyle = {
