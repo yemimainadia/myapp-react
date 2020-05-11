@@ -77,39 +77,54 @@ class Body extends Component {
 
             const btnSubscribe = {
                 background: 'black',
-                color: 'white',
-                fontSize: '20px'
+                color: 'white'
+
+            };
+
+            const formStyle = {
+                marginBottom: '50px',
+                marginTop: '20px'
+            };
+
+            const subsInput = {
+                width: '30%'
             };
 
             RecipeMain = () => {
                 return (
-                    <div className="row table-recipe">
-                        {_this.props.data.map((dataAPI) => (
-                            <div className="col-md-4" key={dataAPI._id}>
-                                <div className="card mb-4 shadow-sm">
-                                    <img src={dataAPI.recipe_poster_url} alt="" className="bd-placeholder-img card-img-top" />
-                                    <div className="card-body">
-                                        <p style={RecipeTitleStyle} className="card-text">{dataAPI.recipe_title}</p>
-                                        <div style={BtnEditStyle} className="btn-edit">
+                    <div>
+                        <div className="row table-recipe">
+                            {_this.props.data.map((dataAPI) => (
+                                <div className="col-md-4" key={dataAPI._id}>
+                                    <div className="card mb-4 shadow-sm">
+                                        <img src={dataAPI.recipe_poster_url} alt="" className="bd-placeholder-img card-img-top" />
+                                        <div className="card-body">
+                                            <p style={RecipeTitleStyle} className="card-text">{dataAPI.recipe_title}</p>
+                                            <div style={BtnEditStyle} className="btn-edit">
 
-                                            <form onSubmit={this.formSubmit.bind(this)}>
-                                                <input type="text" name="newTitle" />
-                                                <input type="hidden" value={dataAPI._id} name="updatedRecipe" />
-                                                <button style={editName} type="submit">Edit Name</button>
-                                            </form>
+                                                <form onSubmit={this.formSubmit.bind(this)}>
+                                                    <input type="text" name="newTitle" />
+                                                    <input type="hidden" value={dataAPI._id} name="updatedRecipe" />
+                                                    <button style={editName} type="submit">Edit Name</button>
+                                                </form>
 
 
-                                        </div>
-                                        <div className="d-flex justify-content-between align-items-center">
-                                            <div className="btn-group">
-                                                <button style={btnDelete} type="button" onClick={() => this.remove(dataAPI._id)} className="btn-delete" data-recipeid={dataAPI._id}>Not Interested</button>
                                             </div>
-                                            <small className="text-muted">{dataAPI.recipe_time}</small>
+                                            <div className="d-flex justify-content-between align-items-center">
+                                                <div className="btn-group">
+                                                    <button style={btnDelete} type="button" onClick={() => this.remove(dataAPI._id)} className="btn-delete" data-recipeid={dataAPI._id}>Not Interested</button>
+                                                </div>
+                                                <small className="text-muted">{dataAPI.recipe_time}</small>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                        ))}
+                            ))}
+                        </div>
+                        <form style={formStyle} onSubmit={this.formSubscribe.bind(this)}>
+                            <input style={subsInput} type="text" name="emailUser" placeholder="Input Your Email" />
+                            <button style={btnSubscribe} type="submit">Subscribe</button>
+                        </form>
                     </div>
                 )
             }
@@ -120,11 +135,6 @@ class Body extends Component {
             <div className="container">
 
                 <RecipeMain />
-
-                <form onSubmit={this.formSubscribe.bind(this)}>
-                    <input type="text" name="emailUser" />
-                    <button type="submit">Subscribe</button>
-                </form>
 
 
             </div>

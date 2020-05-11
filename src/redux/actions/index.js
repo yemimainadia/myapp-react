@@ -25,13 +25,17 @@ export function deleteRecipe(idRecipe) {
 }
 
 export function formSubmit(newTitle, recipeID) {
-    API.put(`recipe/${recipeID}`, {
-        recipe_title: newTitle
-    }).then(res => {
-        console.log(res);
-        console.log(res.data);
-    });
-    return fetchRecipe();
+    return function (dispatch) {
+        API.put(`recipe/${recipeID}`, {
+            recipe_title: newTitle
+        }).then(res => {
+            console.log(res);
+            console.log(res.data);
+            return API.get("recipe?max=6").then(({ data }) => {
+                dispatch(showRecipe(data));
+            });
+        });
+    };
 }
 
 export function formSubscribe(emailUser) {
