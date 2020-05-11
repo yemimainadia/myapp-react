@@ -21,9 +21,25 @@ export function deleteRecipe(idRecipe) {
         console.log(res);
         console.log(res.data);
     });
-    return function (dispatch) {
-        return API.get("recipe?max=6").then(({ data }) => {
-            dispatch(showRecipe(data));
-        });
-    };
+    return fetchRecipe();
+}
+
+export function formSubmit(newTitle, recipeID) {
+    API.put(`recipe/${recipeID}`, {
+        recipe_title: newTitle
+    }).then(res => {
+        console.log(res);
+        console.log(res.data);
+    });
+    return fetchRecipe();
+}
+
+export function formSubscribe(emailUser) {
+    API.post('customer', {
+        username: emailUser
+    }).then(res => {
+        console.log(res);
+        console.log(res.data);
+    });
+    return fetchRecipe();
 }

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import EditBtnImage from '../body/edit-btn.png';
 import { connect } from 'react-redux';
-import { fetchRecipe, deleteRecipe } from '../../redux/actions';
+import { fetchRecipe, deleteRecipe, formSubmit, formSubscribe } from '../../redux/actions';
 
 class Body extends Component {
 
@@ -11,6 +11,24 @@ class Body extends Component {
 
     remove = (recipeID) => {
         this.props.deleteRecipe(recipeID);
+    }
+
+    edit = (recipeID, recipeTitle) => {
+        this.props.editRecipe(recipeID);
+    }
+
+    formSubmit = (form) => {
+        form.preventDefault();
+        const newTitle = form.target.newTitle.value;
+        const recipeID = form.target.updatedRecipe.value;
+        this.props.formSubmit(newTitle, recipeID);
+    }
+
+    formSubscribe = (form) => {
+        form.preventDefault();
+        const emailUser = form.target.emailUser.value;
+        console.log(emailUser);
+        this.props.formSubscribe(emailUser);
     }
 
     render() {
@@ -42,6 +60,27 @@ class Body extends Component {
                 width: 'auto',
                 display: 'inline-block'
             };
+
+            const btnDelete = {
+                marginTop: '15px',
+                marginLeft: '16px',
+                background: 'orange',
+                color: 'white',
+
+            };
+
+            const editName = {
+                background: 'olive',
+                color: 'white',
+
+            };
+
+            const btnSubscribe = {
+                background: 'black',
+                color: 'white',
+                fontSize: '20px'
+            };
+
             RecipeMain = () => {
                 return (
                     <div className="row table-recipe">
@@ -52,14 +91,18 @@ class Body extends Component {
                                     <div className="card-body">
                                         <p style={RecipeTitleStyle} className="card-text">{dataAPI.recipe_title}</p>
                                         <div style={BtnEditStyle} className="btn-edit">
-                                            <button style={ButtonEditStyle} type="button" >
-                                                <img style={ImageEditStyle} src={EditBtnImage} />
-                                            </button>
+
+                                            <form onSubmit={this.formSubmit.bind(this)}>
+                                                <input type="text" name="newTitle" />
+                                                <input type="hidden" value={dataAPI._id} name="updatedRecipe" />
+                                                <button style={editName} type="submit">Edit Name</button>
+                                            </form>
+
 
                                         </div>
                                         <div className="d-flex justify-content-between align-items-center">
                                             <div className="btn-group">
-                                                <button type="button" onClick={() => this.remove(dataAPI._id)} className="btn-delete" data-recipeid={dataAPI._id}>Not Interested</button>
+                                                <button style={btnDelete} type="button" onClick={() => this.remove(dataAPI._id)} className="btn-delete" data-recipeid={dataAPI._id}>Not Interested</button>
                                             </div>
                                             <small className="text-muted">{dataAPI.recipe_time}</small>
                                         </div>
@@ -75,8 +118,14 @@ class Body extends Component {
 
         return (
             <div className="container">
+
                 <RecipeMain />
-                <button type="button" className="addButton">Add New Recipe</button>
+
+                <form onSubmit={this.formSubscribe.bind(this)}>
+                    <input type="text" name="emailUser" />
+                    <button type="submit">Subscribe</button>
+                </form>
+
 
             </div>
 
@@ -92,6 +141,8 @@ const mapStateToProps = ({ data = {}, isLoadingData = true }) => ({
 });
 const mapDispatchToProps = (dispatch) => ({
     fetchRecipe: () => dispatch(fetchRecipe()),
-    deleteRecipe: (idRecipe) => dispatch(deleteRecipe(idRecipe))
+    deleteRecipe: (idRecipe) => dispatch(deleteRecipe(idRecipe)),
+    formSubmit: (newTitle, recipeID) => dispatch(formSubmit(newTitle, recipeID)),
+    formSubscribe: (emailUser) => dispatch(formSubscribe(emailUser))
 })
 export default connect(mapStateToProps, mapDispatchToProps)(Body);
