@@ -62,22 +62,30 @@ class Body extends Component {
             };
 
             const btnDelete = {
-                marginTop: '15px',
+                marginTop: '10px',
                 marginLeft: '16px',
                 background: 'orange',
                 color: 'white',
+                border: '1px',
+                borderRadius: '5px'
+
 
             };
 
             const editName = {
                 background: 'olive',
                 color: 'white',
+                borderRadius: '5px',
+                border: '1px',
+                marginLeft: '5px'
 
             };
 
             const btnSubscribe = {
                 background: 'black',
-                color: 'white'
+                color: 'white',
+                borderRadius: '5px'
+
 
             };
 
@@ -87,7 +95,19 @@ class Body extends Component {
             };
 
             const subsInput = {
-                width: '30%'
+                width: '30%',
+                borderRadius: '5px',
+                background: 'whitesmoke'
+            };
+
+            const fontStyle = {
+                fontSize: '13px',
+                fontFamily: 'Verdana'
+            };
+
+            const editInput = {
+                borderRadius: '5px',
+                background: 'whitesmoke'
             };
 
             RecipeMain = () => {
@@ -103,16 +123,16 @@ class Body extends Component {
                                             <div style={BtnEditStyle} className="btn-edit">
 
                                                 <form onSubmit={this.formSubmit.bind(this)}>
-                                                    <input type="text" name="newTitle" />
+                                                    <input style={editInput} type="text" name="newTitle" placeholder="Type here" />
                                                     <input type="hidden" value={dataAPI._id} name="updatedRecipe" />
-                                                    <button style={editName} type="submit">Edit Name</button>
+                                                    <button style={editName} type="submit"><span style={fontStyle}>Edit Name</span></button>
                                                 </form>
 
 
                                             </div>
                                             <div className="d-flex justify-content-between align-items-center">
                                                 <div className="btn-group">
-                                                    <button style={btnDelete} type="button" onClick={() => this.remove(dataAPI._id)} className="btn-delete" data-recipeid={dataAPI._id}>Not Interested</button>
+                                                    <button style={btnDelete} type="button" onClick={() => this.remove(dataAPI._id)} className="btn-delete" data-recipeid={dataAPI._id}><span style={fontStyle} >Not Interested?</span></button>
                                                 </div>
                                                 <small className="text-muted">{dataAPI.recipe_time}</small>
                                             </div>
@@ -123,7 +143,7 @@ class Body extends Component {
                         </div>
                         <form style={formStyle} onSubmit={this.formSubscribe.bind(this)}>
                             <input style={subsInput} type="text" name="emailUser" placeholder="Input Your Email" />
-                            <button style={btnSubscribe} type="submit">Subscribe</button>
+                            <button style={btnSubscribe} type="submit"><span style={fontStyle}>Subscribe</span></button>
                         </form>
                     </div>
                 )
